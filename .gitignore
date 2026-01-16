@@ -1,0 +1,7 @@
+audio/
+data_store/
+dist/
+installer/
+AutoBell.spec
+build/
+requirements.txt
