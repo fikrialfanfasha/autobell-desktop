@@ -1,6 +1,5 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
-from datetime import datetime
 from pathlib import Path
 import os
 
@@ -23,7 +22,7 @@ class BellScheduler:
     def __init__(self, cfg: dict, audio_engine):
         self.cfg = cfg
         self.audio = audio_engine
-        self.sched = BackgroundScheduler(timezone=None)  # ikut timezone OS
+        self.sched = BackgroundScheduler(timezone=None)
 
     def start(self):
         self._register_jobs()
@@ -38,18 +37,6 @@ class BellScheduler:
         self._register_jobs()
 
     def _register_jobs(self):
-        # Indonesia Raya
-        ir = self.cfg.get("indonesia_raya", {})
-        if ir.get("time") and ir.get("audio"):
-            h, m = _parse_hhmm(ir["time"])
-            self.sched.add_job(
-                lambda: self.audio.play_once(ir["audio"], interrupt=True),
-                CronTrigger(hour=h, minute=m),
-                id="indonesia_raya",
-                replace_existing=True
-            )
-
-        # Event jam & istirahat
         break_cfg = self.cfg.get("break_music", {})
         break_files = list_audio_files(break_cfg.get("folder", ""))
 
@@ -59,26 +46,37 @@ class BellScheduler:
             end = ev.get("end")
             typ = ev.get("type")
 
-            if start:
-                h, m = _parse_hhmm(start)
-                def on_start(ev=ev, label=label, typ=typ):
-                    # bel start (tiap jam beda)
-                    if ev.get("audio_start"):
-                        self.audio.play_once(ev["audio_start"], interrupt=True)
-                    # kalau break, mulai playlist
-                    if typ == "break" and break_cfg.get("enabled", True):
-                        self.audio.start_break_playlist(break_files, shuffle=break_cfg.get("shuffle", True))
+            # --- Jadwal Mulai ---
+            if start and ":" in start:
+                try:
+                    h, m = _parse_hhmm(start)
+                    def on_start(ev=ev, typ=typ):
+                        # Bunyi Audio Start
+                        if ev.get("audio_start"):
+                            self.audio.play_once(ev["audio_start"], interrupt=True)
+                        
+                        # Mulai Playlist Istirahat
+                        if typ == "break" and break_cfg.get("enabled", True):
+                            self.audio.start_break_playlist(break_files, shuffle=break_cfg.get("shuffle", True))
 
-                self.sched.add_job(on_start, CronTrigger(hour=h, minute=m), id=f"{ev['id']}_start", replace_existing=True)
+                    self.sched.add_job(on_start, CronTrigger(hour=h, minute=m), id=f"{ev['id']}_start", replace_existing=True)
+                except ValueError:
+                    pass # Format jam salah, skip
 
-            if end:
-                h, m = _parse_hhmm(end)
-                def on_end(ev=ev, label=label, typ=typ):
-                    # kalau break, stop playlist
-                    if typ == "break":
-                        self.audio.stop_break_playlist()
-                    # bel end (tiap jam beda)
-                    if ev.get("audio_end"):
-                        self.audio.play_once(ev["audio_end"], interrupt=True)
+            # --- Jadwal Selesai ---
+            # Cek jika end valid (ada titik dua), abaikan jika "-" atau kosong
+            if end and ":" in end:
+                try:
+                    h, m = _parse_hhmm(end)
+                    def on_end(ev=ev, typ=typ):
+                        # Stop Playlist Istirahat
+                        if typ == "break":
+                            self.audio.stop_break_playlist()
+                        
+                        # Bunyi Audio End
+                        if ev.get("audio_end"):
+                            self.audio.play_once(ev["audio_end"], interrupt=True)
 
-                self.sched.add_job(on_end, CronTrigger(hour=h, minute=m), id=f"{ev['id']}_end", replace_existing=True)
+                    self.sched.add_job(on_end, CronTrigger(hour=h, minute=m), id=f"{ev['id']}_end", replace_existing=True)
+                except ValueError:
+                    pass

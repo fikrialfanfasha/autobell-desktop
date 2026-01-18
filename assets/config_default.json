@@ -1,30 +1,135 @@
 {
-  "indonesia_raya": {
-    "time": "10:00",
-    "audio": ""
-  },
   "break_music": {
     "enabled": true,
     "folder": "",
     "shuffle": true
   },
   "events": [
-    {"id":"jam1","label":"Jam ke 1","type":"class","start":"06:30","end":"07:10","audio_start":"","audio_end":""},
-    {"id":"jam2","label":"Jam ke 2","type":"class","start":"07:10","end":"07:50","audio_start":"","audio_end":""},
-    {"id":"jam3","label":"Jam ke 3","type":"class","start":"07:50","end":"08:30","audio_start":"","audio_end":""},
-    {"id":"jam4","label":"Jam ke 4","type":"class","start":"08:30","end":"09:10","audio_start":"","audio_end":""},
-
-    {"id":"ist1","label":"Istirahat pertama","type":"break","start":"09:10","end":"09:30","audio_start":"","audio_end":""},
-
-    {"id":"jam5","label":"Jam ke 5","type":"class","start":"09:30","end":"10:10","audio_start":"","audio_end":""},
-    {"id":"jam6","label":"Jam ke 6","type":"class","start":"10:10","end":"10:50","audio_start":"","audio_end":""},
-    {"id":"jam7","label":"Jam ke 7","type":"class","start":"10:50","end":"11:30","audio_start":"","audio_end":""},
-
-    {"id":"ist2","label":"Istirahat kedua","type":"break","start":"11:30","end":"13:00","audio_start":"","audio_end":""},
-
-    {"id":"jam8","label":"Jam ke 8","type":"class","start":"13:00","end":"13:40","audio_start":"","audio_end":""},
-    {"id":"jam9","label":"Jam ke 9","type":"class","start":"13:40","end":"14:20","audio_start":"","audio_end":""},
-    {"id":"jam10","label":"Jam ke 10","type":"class","start":"14:20","end":"15:00","audio_start":"","audio_end":""},
-    {"id":"jam11","label":"Jam ke 11","type":"class","start":"15:00","end":"15:40","audio_start":"","audio_end":""}
+    {
+      "id": "upacara",
+      "label": "Indonesia Raya",
+      "type": "special",
+      "start": "10:00",
+      "end": "-",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam1",
+      "label": "Jam ke 1",
+      "type": "class",
+      "start": "06:30",
+      "end": "07:10",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam2",
+      "label": "Jam ke 2",
+      "type": "class",
+      "start": "07:10",
+      "end": "07:50",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam3",
+      "label": "Jam ke 3",
+      "type": "class",
+      "start": "07:50",
+      "end": "08:30",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam4",
+      "label": "Jam ke 4",
+      "type": "class",
+      "start": "08:30",
+      "end": "09:10",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "ist1",
+      "label": "Istirahat pertama",
+      "type": "break",
+      "start": "09:10",
+      "end": "09:30",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam5",
+      "label": "Jam ke 5",
+      "type": "class",
+      "start": "09:30",
+      "end": "10:10",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam6",
+      "label": "Jam ke 6",
+      "type": "class",
+      "start": "10:10",
+      "end": "10:50",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam7",
+      "label": "Jam ke 7",
+      "type": "class",
+      "start": "10:50",
+      "end": "11:30",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "ist2",
+      "label": "Istirahat kedua",
+      "type": "break",
+      "start": "11:30",
+      "end": "13:00",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam8",
+      "label": "Jam ke 8",
+      "type": "class",
+      "start": "13:00",
+      "end": "13:40",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam9",
+      "label": "Jam ke 9",
+      "type": "class",
+      "start": "13:40",
+      "end": "14:20",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam10",
+      "label": "Jam ke 10",
+      "type": "class",
+      "start": "14:20",
+      "end": "15:00",
+      "audio_start": "",
+      "audio_end": ""
+    },
+    {
+      "id": "jam11",
+      "label": "Jam ke 11",
+      "type": "class",
+      "start": "15:00",
+      "end": "15:40",
+      "audio_start": "",
+      "audio_end": ""
+    }
   ]
 }
